@@ -12,4 +12,5 @@ tags
 __pycache__
 *.pyc
 *.pid
+*.db
 Session.vim
