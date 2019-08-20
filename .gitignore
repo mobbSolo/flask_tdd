@@ -1,0 +1,15 @@
+backup
+last_rsync.log
+cache
+node_modules
+npm-debug.log
+db.sqlite3
+geckodriver.log
+tags
+.tags
+.envrc
+.env
+__pycache__
+*.pyc
+*.pid
+Session.vim
