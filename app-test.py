@@ -8,7 +8,7 @@ import app
 class BasicTestCase(unittest.TestCase):
 
     def test_index(self):
-        """Assert that the Flask is UP"""
+        """Initial test: Ensure that the Flask is UP"""
         tester = app.app.test_client(self)
         response = tester.get('/', content_type='html/text')
         self.assertEqual(response.status_code, 200)
@@ -37,7 +37,7 @@ class FlaskrTestCase(unittest.TestCase):
         """Login helper function."""
         return self.app.post('/login', data=dict(
             username=username,
-            passwor=password
+            password=password
         ), follow_redirects=True)
 
     def logout(self):
@@ -49,7 +49,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_empty_db(self):
         """Ensure database is fresh."""
         rv = self.app.get('/')
-        assert b'No entries here so far' in rv.data
+        assert b'No entries yet. Add some!' in rv.data
 
     def test_login_logout(self):
         """Test login and logout using helper functions."""

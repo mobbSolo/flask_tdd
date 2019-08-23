@@ -57,8 +57,8 @@ def login():
     if request.method == 'POST':
         if request.form['username'] != app.config['USERNAME']:
             error = 'Invalid username'
-        if request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
+        elif request.form['password'] != app.config['PASSWORD']:
+            error = 'Invalid Password'
         else:
             session['logged_in'] = True
             flash('You were logged in')
@@ -77,6 +77,16 @@ def logout():
 @app.route('/add', methods=['POST'])
 def add_entry():
     """Add new post to the database."""
+    if not session.get('logged_in'):
+        abort(401)
+    db = get_db()
+    db.execute(
+        'insert into entries (title, text) values (?, ?)',
+        [request.form['title'], request.form['text']]
+    )
+    db.commit()
+    flash('New entry was successfully posted')
+    return redirect(url_for('index'))
 
 
 
