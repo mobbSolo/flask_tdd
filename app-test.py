@@ -70,7 +70,7 @@ class FlaskrTestCase(unittest.TestCase):
             app.app.config['USERNAME'],
             app.app.config['PASSWORD'] + 'x'
         )
-        assert b'Invalid password' in rv.data
+        assert b'Invalid Password' in rv.data
 
     def test_messages(self):
         """Ensure that a user can post messages."""
