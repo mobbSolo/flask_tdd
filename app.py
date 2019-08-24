@@ -9,7 +9,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 DATABASE = 'flaskr.db'
 DATABASE_PATH = os.path.join(basedir, DATABASE)
 DEBUG = True
-SECRET_KEY = os.environ.get['SECRET']
+SECRET_KEY = os.environ.get('SECRET')
 USERNAME = 'admin'
 PASSWORD = 'admin'
 
@@ -22,31 +22,6 @@ db = SQLAlchemy(app)
 
 import models
 
-
-# def connect_db():
-    # rv = sqlite3.connect(app.config['DATABASE'])
-    # rv.row_factory = sqlite3.Row
-    # return rv
-
-
-# def init_db():
-    # with app.app_context():
-        # db = get_db()
-        # with app.open_resource('schema.sql', mode='r') as f:
-            # db.cursor().executescript(f.read())
-        # db.commit()
-
-
-# def get_db():
-    # if not hasattr(g, 'sqlite_db'):
-        # g.sqlite_db = connect_db()
-    # return g.sqlite_db
-
-
-# @app.teardown_appcontext
-# def close_db(error):
-    # if hasattr(g, 'sqlite_db'):
-        # g.sqlite_db.close()
 
 """ ROUTING """
 
@@ -108,6 +83,14 @@ def delete_entry(post_id):
 
     return jsonify(result)
 
+
+@app.route('/search/', methods=['GET'])
+def search():
+    query = request.args.get("query")
+    entries = db.session.query(models.Flaskr)
+    if query:
+        return render_template('search.html', entries=entries, query=query)
+    return render_template('search.html')
 
 
 if __name__ == '__main__':
