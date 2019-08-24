@@ -1,4 +1,5 @@
 backup
+*.backup
 last_rsync.log
 cache
 node_modules
