@@ -9,7 +9,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 DATABASE = 'flaskr.db'
 DATABASE_PATH = os.path.join(basedir, DATABASE)
 DEBUG = True
-SECRET_KEY = 'my_precious'
+SECRET_KEY = os.environ.get('SECRET')
 USERNAME = 'admin'
 PASSWORD = 'admin'
 
