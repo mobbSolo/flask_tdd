@@ -82,6 +82,16 @@ class FlaskrTestCase(unittest.TestCase):
         data = json.loads(rv.data)
         self.assertEqual(data['status'], 1)
 
+    def test_search(self):
+        """Ensure search functionality"""
+        self.login(app.config['USERNAME'], app.config['PASSWORD'])
+        self.app.post('/add', data=dict(
+            title='Testing',
+            text='This is a post'
+        ), follow_redirects=True)
+        rv2 = self.app.get('/search/?query=Testing')
+        self.assertIn(b'Testing', rv2.data)
+
 
 if __name__ == '__main__':
     unittest.main()
